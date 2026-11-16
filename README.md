@@ -151,12 +151,12 @@ Have `dsh` on PATH? One command, one restart, one click. Run the line for the ho
 
 ```sh
 # Official `dsh web`
-dsh plugin --profile web add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile web add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 
 # Official desktop EXE
-dsh plugin --profile desktop add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile desktop add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 
-# pnpm 11+ blocks build scripts by default, hence --allow-build. Its key must be "name@exact-specifier", which is why the URL appears twice above (once inside the flag, once as the install target). On an older pnpm that errors with Unknown option, drop the whole --allow-build=... part
+# pnpm 11+ blocks build scripts. If you hit ERR_PNPM_IGNORED_BUILDS (installed but inert), use the three recovery commands under "Step by step"
 ```
 
 1. **Fully quit and reopen** the host you installed into. Web: stop `dsh web` and start it again. Desktop: quit the tray icon too, then open the exe.

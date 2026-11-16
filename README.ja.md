@@ -151,12 +151,12 @@ PATH に `dsh` があれば、コマンド 1 つ、再起動 1 回、クリッ�
 
 ```sh
 # 公式 `dsh web`
-dsh plugin --profile web add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile web add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 
 # 公式デスクトップ EXE
-dsh plugin --profile desktop add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile desktop add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 
-# pnpm 11 以降はビルドスクリプトを既定でブロックするため --allow-build を付けます。このキーは「パッケージ名@完全な specifier」でなければならないため、上の行では URL が 2 回出てきます（1 回は引数の値、1 回はインストール対象）。古い pnpm で Unknown option になる場合は --allow-build=... の部分ごと外してください
+# pnpm 11 以降はビルドスクリプトをブロックします。ERR_PNPM_IGNORED_BUILDS（入ったが効かない）が出たら、下の「ステップバイステップ」にある 3 つの復旧コマンドを使ってください
 ```
 
 1. インストールしたホストを **完全に終了して再起動** します。Web: `dsh web` を停止して起動し直す。デスクトップ: トレイアイコンも終了してから exe を開く。
