@@ -4,17 +4,14 @@
 
 <h1 align="center">⚔️ DeepSeek Harness サイバーセキュリティ レッドチームツール (dsh-purge)</h1>
 
-<p align="center"><strong>バージョン 1.1.81</strong></p>
+<p align="center"><strong>バージョン 1.1.90</strong> · 対象 DSH 0.2.1-rc.2</p>
 
 <p align="center">
   <em>DeepSeek Harness のジェイルブレイク: すべてのモデルに対応し、モデルごとにプロンプトを切り替え。デフォルトプロンプトは 小码酱 用。ぜひ Star ⭐ を。これをベースに開発する場合は「要帰属表示」をご覧ください。</em>
 </p>
 
 <p align="center">
-  <a href="https://github.com/YuJunZhiXue/dsh-purge/stargazers"><img src="https://img.shields.io/github/stars/YuJunZhiXue/dsh-purge?logo=github&label=Stars" alt="GitHub stars"></a>
-  <a href="https://github.com/YuJunZhiXue/dsh-purge/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue?style=flat" alt="Apache-2.0"></a>
-  <a href="https://awesome-dsh-plugin.com"><img src="https://awesome-dsh-plugin.com/badge.svg" alt="awesome · DSH plugin"></a>
-  <a href="https://deepseek.stream/plugins/dsh-purge"><img src="https://img.shields.io/badge/Hub-dsh--purge-1a73e8" alt="DeepSeek Harness Hub"></a>
+  <a href="https://github.com/tednved/dsh-purge/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue?style=flat" alt="Apache-2.0"></a>
   <a href="https://www.deepseek.com/harness/"><img src="https://img.shields.io/badge/dsh-0.2.0--rc.2%20%2F%200.2.1--rc.2-blue" alt="DSH"></a>
   <br>
   <img src="https://img.shields.io/badge/Node.js-%3E%3D18-339933?logo=node.js&logoColor=fff" alt="Node.js">
@@ -22,12 +19,14 @@
 </p>
 
 <p align="center">
-  <a href="https://dsh-plugin.org/plugins/yujunzhixue/dsh-purge"><img src="https://dsh-plugin.org/badges/listed.svg" alt="Listed on dsh-plugin.org"></a>
-</p>
-
-<p align="center">
   <a href="README.md">English</a> | <a href="README.zh-CN.md">中文</a> | <a href="README.ja.md">日本語</a>
 </p>
+
+## このリポジトリについて
+
+このリポジトリは **dsh-purge 1.1.90** のソース復元版です。上流リポジトリは公開を終了しており、ここにある内容はインストール済み環境から完全に復元したスナップショットです。バージョン表記・インストール URL・本節の説明を除き、コードは原本と同一です。
+
+**原作者: 小杨（[@YuJunZhiXue](https://github.com/YuJunZhiXue)）**、[Apache-2.0 ライセンス](./LICENSE)。詳細は [LICENSE](./LICENSE) と [NOTICE](./NOTICE) を参照してください。フォークする場合は出所の明記が必須です。
 
 ## 作者より
 
@@ -57,7 +56,7 @@
 
 ## これは何か
 
-**dsh-purge** は、お使いのマシンにすでにインストールされている公式 [DeepSeek Harness](https://www.deepseek.com/harness/) 向けのサイバーセキュリティ レッドチームプラグインです。**1.1.81** は **DSH 0.2.1-rc.2** を対象とします（0.2.0 も動作します）。**DSH 0.2.1-rc.3 以降の新しい RC は非対応です。** 公式 **Web**（`dsh web`）と公式 **デスクトップ EXE** の両方に対応します。インストールと Apply はそれぞれ別々に行います。
+**dsh-purge** は、お使いのマシンにすでにインストールされている公式 [DeepSeek Harness](https://www.deepseek.com/harness/) 向けのサイバーセキュリティ レッドチームプラグインです。**1.1.90** は **DSH 0.2.1-rc.2** を対象とします（0.2.0 も動作します）。**DSH 0.2.1-rc.3 以降の新しい RC は非対応です。** 公式 **Web**（`dsh web`）と公式 **デスクトップ EXE** の両方に対応します。インストールと Apply はそれぞれ別々に行います。
 
 Harness は単にプロンプトを転送するだけではありません。プロンプトの書き換え、承認ゲート、サンドボックスポリシー、セッション移行を実行時に行います。「モデルは答えるか」だけを問うと、ホスト層のブロックをモデルの拒否と取り違えてしまいます。このプラグインは、あなた自身のインストール環境でこの 2 つの層を分離し、制御された評価や、どのデフォルトポリシーが過度に厳しいかを確認するために使います。
 
@@ -131,11 +130,11 @@ Harness は単にプロンプトを転送するだけではありません。プ
 
 ## 対応ホスト
 
-**1.1.81 は DSH 0.2.1-rc.2 を対象とします。** 0.2.0 も動作します。0.1.x には適用しないでください。
+**1.1.90 は DSH 0.2.1-rc.2 を対象とします。** 0.2.0 も動作します。0.1.x には適用しないでください。
 
-- **dsh 0.2.1-rc.2**（公式デスクトップ / 公式 `dsh web`）: **1.1.81** を使用。`{{cwd}}` / `[cwd]` クラッシュ、patch #40 のマッチ、削除された `toolFilter`、ホスト `dsh-tools` の解決、hostFs の fd、デスクトップヘルパーの自己終了、`file:` アーカイブ更新、Ctrl+Enter ステアを修正。
+- **dsh 0.2.1-rc.2**（公式デスクトップ / 公式 `dsh web`）: **1.1.90** を使用。`{{cwd}}` / `[cwd]` クラッシュ、patch #40 のマッチ、削除された `toolFilter`、ホスト `dsh-tools` の解決、hostFs の fd、デスクトップヘルパーの自己終了、`file:` アーカイブ更新、Ctrl+Enter ステアを修正。
 - **dsh 0.2.0-rc.2**: **1.1.40** 以降を使用。このラインもインストールできます。
-- **dsh 0.1.7**（rc.1 / rc.2 を含む）: **1.1.39** 以前を使用 — [Releases](https://github.com/YuJunZhiXue/dsh-purge/releases) で該当タグを選択。
+- **dsh 0.1.7**（rc.1 / rc.2 を含む）: **1.1.39** 以前を使用 — [Releases](https://github.com/tednved/dsh-purge/releases) で該当タグを選択。
 - **dsh 0.2.1-rc.3 / rc.4 以降は非対応です。** マッチしないパッチは pending または skipped のままで、盲目的な書き換えはしません。**0.2.1-rc.2** に留まってください。
 
 マッチしないパッチは pending または skipped のままで、盲目的な書き換えはしません。
@@ -152,10 +151,10 @@ PATH に `dsh` があれば、コマンド 1 つ、再起動 1 回、クリッ�
 
 ```sh
 # 公式 `dsh web`
-dsh plugin --profile web add https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/master
+dsh plugin --profile web add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 
 # 公式デスクトップ EXE
-dsh plugin --profile desktop add https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/master
+dsh plugin --profile desktop add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 1. インストールしたホストを **完全に終了して再起動** します。Web: `dsh web` を停止して起動し直す。デスクトップ: トレイアイコンも終了してから exe を開く。
@@ -180,14 +179,14 @@ pnpm のみ（`dsh` 不要）: リポジトリのルートではなく、実際�
 
 ```sh
 cd "$DSH_HOME/profiles/web"    # desktop: profiles/desktop
-pnpm add https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/master
+pnpm add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 Windows PowerShell:
 
 ```powershell
 cd "$env:USERPROFILE\.dsh\profiles\web"   # desktop: profiles\desktop
-pnpm add https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/master
+pnpm add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 `pnpm add` と `dsh plugin add` はパッケージを取得します。`postinstall` が `dsh-purge` を `dsh.profile.bundles` に書き込み、プロファイルの `cordis.patch.yml` に body `insert` を追加します。その insert がないとホストはプラグインを読み込まず、ボタンも現れません。
@@ -197,9 +196,9 @@ pnpm add https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/mas
 - pnpm 11/12 はビルドを許可しないとインストールスクリプトをスキップします（`ERR_PNPM_IGNORED_BUILDS`）:
 
 ```sh
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/master https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/master
+pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 # すでにインストール済みで警告のみの場合 — 完全な指定子が必要です（名前だけだと "set this to true or false" が残ります）:
-pnpm approve-builds dsh-purge@https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/master
+pnpm approve-builds dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 # bundles / insert がまだ無い場合:
 node node_modules/dsh-purge/scripts/ensure-profile-bundle.mjs
 ```
@@ -208,7 +207,7 @@ node node_modules/dsh-purge/scripts/ensure-profile-bundle.mjs
 - デスクトップクライアントではボタンをクリックすることもできます（`dsh://` ディープリンク。同じ tarball をダウンロードします）。
 
 <p align="center">
-  <a href="dsh://plugin/install?id=dsh-purge&name=dsh-purge&version=1.1.81&repo=YuJunZhiXue%2Fdsh-purge&permissions=%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%B3%A8%E5%85%A5%2C%E6%9C%AC%E6%9C%BA%E8%A1%A5%E4%B8%81%2C%E8%AE%BE%E7%BD%AE%E9%A1%B5&downloadUrl=https%3A%2F%2Fcodeload.github.com%2FYuJunZhiXue%2Fdsh-purge%2Ftar.gz%2Frefs%2Fheads%2Fmaster"><strong>デスクトップクライアントでインストール</strong></a>
+  <a href="dsh://plugin/install?id=dsh-purge&name=dsh-purge&version=1.1.90&repo=tednved%2Fdsh-purge&permissions=%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%B3%A8%E5%85%A5%2C%E6%9C%AC%E6%9C%BA%E8%A1%A5%E4%B8%81%2C%E8%AE%BE%E7%BD%AE%E9%A1%B5&downloadUrl=https%3A%2F%2Fcodeload.github.com%2Ftednved%2Fdsh-purge%2Ftar.gz%2Frefs%2Fheads%2Fmain"><strong>デスクトップクライアントでインストール</strong></a>
 </p>
 
 **ステップ 3 — ホストを再起動する。** プラグインをプロファイルに追加しただけでは、`@deepseek-ai` にパッチは当たりません。インストールしたホストを完全に終了して再起動します（Web: `dsh web` を停止して起動し直す。デスクトップ: トレイアイコンも終了してから exe を開く）。
@@ -226,7 +225,7 @@ node node_modules/dsh-purge/scripts/ensure-profile-bundle.mjs
 
 ```sh
 dsh plugin --profile desktop remove dsh-purge
-dsh plugin --profile desktop add https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/master
+dsh plugin --profile desktop add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 pnpm のみ:
@@ -234,7 +233,7 @@ pnpm のみ:
 ```sh
 cd "$DSH_HOME/profiles/desktop"
 pnpm remove dsh-purge
-pnpm add https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/master
+pnpm add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 Web では `desktop` を `web` に置き換えます。
@@ -255,13 +254,13 @@ DeepSeek Harness プラグイン `dsh-purge` を Web プロファイルのみに
 `dsh` が PATH にある場合:
 
 ```sh
-dsh plugin --profile web add https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/master
+dsh plugin --profile web add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 `dsh` が無く pnpm がある場合は、`$DSH_HOME/profiles/web`（多くは `~/.dsh/profiles/web`）に `cd` して実行:
 
 ```sh
-pnpm add https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/master
+pnpm add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 このディレクトリがすでにクローンで `dsh` がある場合は `dsh plugin --profile web add .` を使う。`dsh` も pnpm も無ければ、ユーザーに伝えて停止する。
@@ -299,10 +298,10 @@ $cands | Select-Object -Unique | Where-Object { $_ -and (Test-Path (Join-Path $_
 **2. プラグインを `$DSH_HOME/plugins/dsh-purge` に置く**（フォルダ名は `dsh-purge`、`package.json` の `"name"` も `dsh-purge`）。
 
 ```sh
-git clone https://github.com/YuJunZhiXue/dsh-purge.git "$DSH_HOME/plugins/dsh-purge"
+git clone https://github.com/tednved/dsh-purge.git "$DSH_HOME/plugins/dsh-purge"
 ```
 
-git が無い場合: [master.tar.gz](https://github.com/YuJunZhiXue/dsh-purge/archive/refs/heads/master.tar.gz) をダウンロードし、展開して `dsh-purge-master` → `dsh-purge` にリネームし、`plugins` 以下に置きます。すでにクローンがある場合は、いくつかの `.js` ファイルではなくツリー全体をコピーしてください。
+git が無い場合: [master.tar.gz](https://github.com/tednved/dsh-purge/archive/refs/heads/main.tar.gz) をダウンロードし、展開して `dsh-purge-main` → `dsh-purge` にリネームし、`plugins` 以下に置きます。すでにクローンがある場合は、いくつかの `.js` ファイルではなくツリー全体をコピーしてください。
 
 **3. そのプロファイルの `package.json` だけを編集する — まずバックアップ。** Web → `$DSH_HOME/profiles/web/package.json`; desktop → `$DSH_HOME/profiles/desktop/package.json`。既存の依存関係と bundle をすべて残したまま、**2 つだけ** 追加します:
 
@@ -581,14 +580,14 @@ Community Desktop はメンテナンスされていません。
 
 ## リリース
 
-作者の個人チャンネル: [t.me/LLM_PoJia](https://t.me/LLM_PoJia)。メモや更新情報はそこに出ます。GitHub [Releases](https://github.com/YuJunZhiXue/dsh-purge/releases) には古いパッケージもあります。オリジナルの転売は禁止、フォークは帰属表示が必須です。
+作者の個人チャンネル: [t.me/LLM_PoJia](https://t.me/LLM_PoJia)。メモや更新情報はそこに出ます。GitHub [Releases](https://github.com/tednved/dsh-purge/releases) には古いパッケージもあります。オリジナルの転売は禁止、フォークは帰属表示が必須です。
 
 ## 備考
 
 - 対象範囲は、ローカルの `@deepseek-ai/*` パッケージ内のレンダリング済みコピー、デフォルト、ランタイムロジック、および harness ホーム以下のオーバーライドファイルとルールセットです。
 - アップグレード後、マッチしないオリジナルは skipped と表示されます。Apply はなお完了し、それらのファイルは変更されません。
 - `@deepseek-ai` 外のサードパーティプラグインの *ソースリポジトリ* には手を付けません（CMD サイレンスは、インストール済みの doctor / market / liangshen / mnemon を実行時に **ベストエフォートで** パッチすることがあります）。
-- GitHub tarball からインストールしてください（名前は npm にありません。プラグインマーケットはスキップ）。`dsh` あり: `dsh plugin --profile web add https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/refs/heads/master`。pnpm のみ: `$DSH_HOME/profiles/web` 内でその URL を `pnpm add`。EXE には `desktop` を使用。このリポジトリからは `add .`。
+- GitHub tarball からインストールしてください（名前は npm にありません。プラグインマーケットはスキップ）。`dsh` あり: `dsh plugin --profile web add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`。pnpm のみ: `$DSH_HOME/profiles/web` 内でその URL を `pnpm add`。EXE には `desktop` を使用。このリポジトリからは `add .`。
 
 ---
 
