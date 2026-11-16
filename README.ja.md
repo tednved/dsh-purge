@@ -151,12 +151,12 @@ PATH に `dsh` があれば、コマンド 1 つ、再起動 1 回、クリッ�
 
 ```sh
 # 公式 `dsh web`
-dsh plugin --profile web add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile web add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 
 # 公式デスクトップ EXE
-dsh plugin --profile desktop add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile desktop add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 
-# pnpm 11 以降はビルドスクリプトを既定でブロックするため --allow-build を付けます。古い pnpm で Unknown option になる場合はこの 2 つの引数を外してください
+# pnpm 11 以降はビルドスクリプトを既定でブロックするため --allow-build を付けます。このキーは「パッケージ名@完全な specifier」でなければならないため、上の行では URL が 2 回出てきます（1 回は引数の値、1 回はインストール対象）。古い pnpm で Unknown option になる場合は --allow-build=... の部分ごと外してください
 ```
 
 1. インストールしたホストを **完全に終了して再起動** します。Web: `dsh web` を停止して起動し直す。デスクトップ: トレイアイコンも終了してから exe を開く。
@@ -186,14 +186,14 @@ pnpm のみ（`dsh` 不要）: リポジトリのルートではなく、実際�
 
 ```sh
 cd "$DSH_HOME/profiles/web"    # desktop: profiles/desktop
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 Windows PowerShell:
 
 ```powershell
 cd "$env:USERPROFILE\.dsh\profiles\web"   # desktop: profiles\desktop
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 `pnpm add` と `dsh plugin add` はパッケージを取得します。`postinstall` が `dsh-purge` を `dsh.profile.bundles` に書き込み、プロファイルの `cordis.patch.yml` に body `insert` を追加します。その insert がないとホストはプラグインを読み込まず、ボタンも現れません。
@@ -203,7 +203,7 @@ pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github
 - pnpm 11/12 はビルドを許可しないとインストールスクリプトをスキップします（`ERR_PNPM_IGNORED_BUILDS`）:
 
 ```sh
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 # すでにインストール済みで警告のみの場合 — 完全な指定子が必要です（名前だけだと "set this to true or false" が残ります）:
 pnpm approve-builds dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 # bundles / insert がまだ無い場合:
@@ -232,7 +232,7 @@ node node_modules/dsh-purge/scripts/ensure-profile-bundle.mjs
 
 ```sh
 dsh plugin --profile desktop remove dsh-purge
-dsh plugin --profile desktop add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile desktop add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 pnpm のみ:
@@ -240,7 +240,7 @@ pnpm のみ:
 ```sh
 cd "$DSH_HOME/profiles/desktop"
 pnpm remove dsh-purge
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 Web では `desktop` を `web` に置き換えます。
@@ -261,13 +261,13 @@ DeepSeek Harness プラグイン `dsh-purge` を Web プロファイルのみに
 `dsh` が PATH にある場合:
 
 ```sh
-dsh plugin --profile web add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile web add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 `dsh` が無く pnpm がある場合は、`$DSH_HOME/profiles/web`（多くは `~/.dsh/profiles/web`）に `cd` して実行:
 
 ```sh
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 このディレクトリがすでにクローンで `dsh` がある場合は `dsh plugin --profile web add .` を使う。`dsh` も pnpm も無ければ、ユーザーに伝えて停止する。
@@ -594,7 +594,7 @@ Community Desktop はメンテナンスされていません。
 - 対象範囲は、ローカルの `@deepseek-ai/*` パッケージ内のレンダリング済みコピー、デフォルト、ランタイムロジック、および harness ホーム以下のオーバーライドファイルとルールセットです。
 - アップグレード後、マッチしないオリジナルは skipped と表示されます。Apply はなお完了し、それらのファイルは変更されません。
 - `@deepseek-ai` 外のサードパーティプラグインの *ソースリポジトリ* には手を付けません（CMD サイレンスは、インストール済みの doctor / market / liangshen / mnemon を実行時に **ベストエフォートで** パッチすることがあります）。
-- GitHub tarball からインストールしてください（npm 上の同名はスタブです。プラグインマーケットはスキップ）。`dsh` あり: `dsh plugin --profile web add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`。pnpm のみ: `$DSH_HOME/profiles/web` 内でその URL を `pnpm add`。EXE には `desktop` を使用。このリポジトリからは `add .`。
+- GitHub tarball からインストールしてください（npm 上の同名はスタブです。プラグインマーケットはスキップ）。`dsh` あり: `dsh plugin --profile web add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`。pnpm のみ: `$DSH_HOME/profiles/web` 内でその URL を `pnpm add`。EXE には `desktop` を使用。このリポジトリからは `add .`。
 
 ---
 

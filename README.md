@@ -151,12 +151,12 @@ Have `dsh` on PATH? One command, one restart, one click. Run the line for the ho
 
 ```sh
 # Official `dsh web`
-dsh plugin --profile web add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile web add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 
 # Official desktop EXE
-dsh plugin --profile desktop add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile desktop add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 
-# pnpm 11+ blocks build scripts by default, hence --allow-build; on an older pnpm that errors with Unknown option, drop both flags
+# pnpm 11+ blocks build scripts by default, hence --allow-build. Its key must be "name@exact-specifier", which is why the URL appears twice above (once inside the flag, once as the install target). On an older pnpm that errors with Unknown option, drop the whole --allow-build=... part
 ```
 
 1. **Fully quit and reopen** the host you installed into. Web: stop `dsh web` and start it again. Desktop: quit the tray icon too, then open the exe.
@@ -186,14 +186,14 @@ pnpm only (no `dsh` required): run this inside the profile you actually use, not
 
 ```sh
 cd "$DSH_HOME/profiles/web"    # desktop: profiles/desktop
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 Windows PowerShell:
 
 ```powershell
 cd "$env:USERPROFILE\.dsh\profiles\web"   # desktop: profiles\desktop
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 `pnpm add` and `dsh plugin add` fetch the package; `postinstall` writes `dsh-purge` into `dsh.profile.bundles` and adds a body `insert` in the profile `cordis.patch.yml`. Without that insert the host never loads the plugin and no button appears.
@@ -203,7 +203,7 @@ pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github
 - pnpm 11/12 skips install scripts (`ERR_PNPM_IGNORED_BUILDS`) unless you allow the build:
 
 ```sh
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 # Already installed, warning only — the full specifier is required (name-only leaves "set this to true or false"):
 pnpm approve-builds dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 # If bundles / insert are still missing:
@@ -232,7 +232,7 @@ node node_modules/dsh-purge/scripts/ensure-profile-bundle.mjs
 
 ```sh
 dsh plugin --profile desktop remove dsh-purge
-dsh plugin --profile desktop add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile desktop add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 pnpm only:
@@ -240,7 +240,7 @@ pnpm only:
 ```sh
 cd "$DSH_HOME/profiles/desktop"
 pnpm remove dsh-purge
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 Swap `desktop` for `web` on Web.
@@ -261,13 +261,13 @@ Install the DeepSeek Harness plugin `dsh-purge` into the Web profile only. Do no
 If `dsh` is on PATH:
 
 ```sh
-dsh plugin --profile web add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile web add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 If `dsh` is missing and pnpm is available, `cd` into `$DSH_HOME/profiles/web` (often `~/.dsh/profiles/web`) and run:
 
 ```sh
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 If this directory is already a clone and `dsh` exists, use `dsh plugin --profile web add .`. If neither `dsh` nor pnpm is available, tell the user and stop.
@@ -594,7 +594,7 @@ The author's personal channel: [t.me/LLM_PoJia](https://t.me/LLM_PoJia). Notes a
 - Scope is rendered copy, defaults, and runtime logic inside local `@deepseek-ai/*` packages, plus override files and rule sets under the harness home.
 - After an upgrade, unmatched originals show as skipped. Apply still completes, and those files are left unchanged.
 - Third-party plugin *source repos* outside `@deepseek-ai` are left alone (CMD silence may **best-effort** patch installed doctor / market / liangshen / mnemon at runtime).
-- Install from the GitHub tarball (the npm name is a stub package; skip the plugin market). With `dsh`: `dsh plugin --profile web add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`. pnpm only: `pnpm add` that URL inside `$DSH_HOME/profiles/web`. Use `desktop` for the EXE. From this repo, `add .`.
+- Install from the GitHub tarball (the npm name is a stub package; skip the plugin market). With `dsh`: `dsh plugin --profile web add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`. pnpm only: `pnpm add` that URL inside `$DSH_HOME/profiles/web`. Use `desktop` for the EXE. From this repo, `add .`.
 
 ---
 

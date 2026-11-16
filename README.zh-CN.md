@@ -153,12 +153,12 @@ PATH 里有 `dsh`？一条命令、一次重启、一次点击。跑你正在打
 
 ```sh
 # 官方 `dsh web`
-dsh plugin --profile web add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile web add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 
 # 官方桌面 EXE
-dsh plugin --profile desktop add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile desktop add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 
-# pnpm 11 起默认拦安装脚本，所以要带 --allow-build；老版 pnpm 报 Unknown option 就把这两个参数去掉
+# pnpm 11 起默认拦安装脚本，所以要带 --allow-build。这个参数的键必须写成「包名@完整来源」，所以上面一行 URL 出现了两次（一次在参数值里，一次是安装目标）。老版 pnpm 报 Unknown option 就把 --allow-build=... 整段去掉
 ```
 
 1. **完全退出再打开**刚装的那个宿主。Web：停掉 `dsh web` 再开。桌面：托盘也要退出，再开 exe。
@@ -188,14 +188,14 @@ dsh plugin --profile desktop add --allow-build=dsh-purge --allow-build=dsh-purge
 
 ```sh
 cd "$DSH_HOME/profiles/web"    # 桌面改 profiles/desktop
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 Windows PowerShell：
 
 ```powershell
 cd "$env:USERPROFILE\.dsh\profiles\web"   # 桌面改 profiles\desktop
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 `pnpm add` 和 `dsh plugin add` 都会拉包；`postinstall` 再把 `dsh-purge` 写进 `dsh.profile.bundles`，并在 profile 的 `cordis.patch.yml` 补上本体 `insert`（没有这一行，宿主不加载插件，界面也没有按钮）。
@@ -205,7 +205,7 @@ pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github
 - pnpm 11/12 默认拦安装脚本（`ERR_PNPM_IGNORED_BUILDS`），要带上允许构建：
 
 ```sh
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 # 已经装上但只有警告时，必须带完整 specifier（只写 dsh-purge 会留下 set this to true or false）：
 pnpm approve-builds dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 # bundles / insert 还没写上时再补：
@@ -234,7 +234,7 @@ node node_modules/dsh-purge/scripts/ensure-profile-bundle.mjs
 
 ```sh
 dsh plugin --profile desktop remove dsh-purge
-dsh plugin --profile desktop add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile desktop add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 只有 pnpm 时：
@@ -242,7 +242,7 @@ dsh plugin --profile desktop add --allow-build=dsh-purge --allow-build=dsh-purge
 ```sh
 cd "$DSH_HOME/profiles/desktop"
 pnpm remove dsh-purge
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 Web 端把 `desktop` 换成 `web`。
@@ -263,13 +263,13 @@ Web 端把 `desktop` 换成 `web`。
 有 `dsh`：
 
 ```sh
-dsh plugin --profile web add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+dsh plugin --profile web add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 没有 `dsh`、只有 pnpm：找到 `$DSH_HOME/profiles/web`（常见 `~/.dsh/profiles/web`），在该目录执行：
 
 ```sh
-pnpm add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
+pnpm add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main
 ```
 
 当前目录已是本仓库且有 `dsh` 时改用 `dsh plugin --profile web add .`。`dsh` 和 pnpm 都没有再告诉用户后停止。
@@ -602,7 +602,7 @@ flowchart TD
 - 改动范围是本机 `@deepseek-ai/*` 包里的渲染文案、默认策略和执行逻辑，以及用户目录下的覆盖文件与规则集。
 - 升级后原文对不上会显示跳过，这次应用仍算完成，不会乱改。
 - 不改动非 `@deepseek-ai` 的第三方插件源仓库（启动时的 CMD 无感会**尽力**修补已装的 doctor / market / 梁神 / mnemon，属运行时补丁）。
-- 安装走 GitHub 压缩包（npm 上同名的是占位包，也不要走插件市场）。有 `dsh`：`dsh plugin --profile web add --allow-build=dsh-purge --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`。只有 pnpm：在 `$DSH_HOME/profiles/web` 里 `pnpm add` 同一地址。桌面把 `web` 换成 `desktop`。当前目录已是本仓库时 `add .`。
+- 安装走 GitHub 压缩包（npm 上同名的是占位包，也不要走插件市场）。有 `dsh`：`dsh plugin --profile web add --allow-build=dsh-purge@https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`。只有 pnpm：在 `$DSH_HOME/profiles/web` 里 `pnpm add` 同一地址。桌面把 `web` 换成 `desktop`。当前目录已是本仓库时 `add .`。
 
 ---
 
