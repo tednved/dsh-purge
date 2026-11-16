@@ -145,7 +145,7 @@ Harness 不只是把问题交给模型。它还会在运行时改提示词、审
 
 ## 安装
 
-**不要走插件市场**：[dsh-plugin.org](https://dsh-plugin.org) 或设置里的「插件市场」一键安装会报 `already queued: dsh-purge`，命令也走不成。npm 仓库没有 `dsh-purge` 这个名字，不要 `pnpm add dsh-purge`。
+**不要走插件市场**：[dsh-plugin.org](https://dsh-plugin.org) 和设置里的「插件市场」中，`dsh-purge` 这条已随上游仓库一起下架，点进去是 404；这个复原仓库也没有在市场登记，从那里装不到东西。**更不要 `pnpm add dsh-purge`**：npm 上这个包名被一个版本停在 `0.0.0-stage` 的占位包占着，装到的不是本软件。装本仓库只用下面给出的 GitHub 地址。
 
 ### 快速安装
 
@@ -162,7 +162,12 @@ dsh plugin --profile desktop add https://codeload.github.com/tednved/dsh-purge/t
 1. **完全退出再打开**刚装的那个宿主。Web：停掉 `dsh web` 再开。桌面：托盘也要退出，再开 exe。
 2. 在这个宿主点会话标题旁的 **dsh-purge** →「清洗」→「应用」。应用成功后会自动重启一次。
 
-完成 —— 聊天里跑 `/purge status` 验证。如果 pnpm 问要不要允许构建、或者下面任何东西没出现，走后面的分步说明。
+完成 —— 聊天里跑 `/purge status` 验证。地址打不开（404）？说明仓库还是私有状态。三条路任选：
+- 转公开：`gh repo edit tednved/dsh-purge --visibility public`，之后上面的命令照用
+- 有 SSH key：`pnpm add git+ssh://git@github.com/tednved/dsh-purge.git`
+- 已经 clone 到本地：进那个目录跑 `pnpm add .`
+
+如果 pnpm 问要不要允许构建、或者下面任何东西没出现，走后面的分步说明。
 
 ### 分步说明
 
@@ -223,7 +228,7 @@ node node_modules/dsh-purge/scripts/ensure-profile-bundle.mjs
 **第 5 步 —— 排障。** 只有上面没有跑到「完成标志」时才看这里。
 
 - **会话标题旁没有按钮。** 在对应 profile 跑 `dsh --dump-config`（或 `dsh --profile desktop --dump-config`），看有没有本体行 `id: dsh-purge`（不是 `dsh-purge-redteam`）。没有就再跑第 2 步的 `ensure-profile-bundle.mjs`，然后完全退出重开宿主。升到本版本后，若演练台子行已经在跑，它也会在启动时把缺的 insert 补上，再完全退出重开一次即可。开头那几条 `entry "redteam-store" not found` 只是旧红队包不在，可以忽略。
-- **市场报 `already queued: dsh-purge`。** 不要再点市场；回到第 2 步用 `dsh plugin add` 或 pnpm 装。命令也说已经有了，就先卸再装，然后重走第 3 步：
+- **市场里点不进去 / 报 404。** 正常，条目已随上游下架。回到第 2 步用 `dsh plugin add` 或 pnpm 装。命令说已经有了，就先卸再装，然后重走第 3 步：
 
 ```sh
 dsh plugin --profile desktop remove dsh-purge
@@ -249,7 +254,7 @@ Web 端把 `desktop` 换成 `web`。
 
 <!-- AI-AGENT-START -->
 
-安装 DeepSeek Harness 插件 `dsh-purge`，只装到 Web profile。不要全盘搜索，不要读或改其它文件，不要应用设置，也不要重启应用。不要装到桌面 profile。不要走插件市场。npm 仓库没有这个包名，不要 `pnpm add dsh-purge`。
+安装 DeepSeek Harness 插件 `dsh-purge`，只装到 Web profile。不要全盘搜索，不要读或改其它文件，不要应用设置，也不要重启应用。不要装到桌面 profile。不要走插件市场（那条已下架，是 404）。npm 上同名的是占位包，不要 `pnpm add dsh-purge`。
 
 **Web 端（官方 `dsh web`）**
 
@@ -595,7 +600,7 @@ flowchart TD
 - 改动范围是本机 `@deepseek-ai/*` 包里的渲染文案、默认策略和执行逻辑，以及用户目录下的覆盖文件与规则集。
 - 升级后原文对不上会显示跳过，这次应用仍算完成，不会乱改。
 - 不改动非 `@deepseek-ai` 的第三方插件源仓库（启动时的 CMD 无感会**尽力**修补已装的 doctor / market / 梁神 / mnemon，属运行时补丁）。
-- 安装走 GitHub 压缩包（npm 仓库没有这个名字，也不要走插件市场）。有 `dsh`：`dsh plugin --profile web add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`。只有 pnpm：在 `$DSH_HOME/profiles/web` 里 `pnpm add` 同一地址。桌面把 `web` 换成 `desktop`。当前目录已是本仓库时 `add .`。
+- 安装走 GitHub 压缩包（npm 上同名的是占位包，也不要走插件市场）。有 `dsh`：`dsh plugin --profile web add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`。只有 pnpm：在 `$DSH_HOME/profiles/web` 里 `pnpm add` 同一地址。桌面把 `web` 换成 `desktop`。当前目录已是本仓库时 `add .`。
 
 ---
 

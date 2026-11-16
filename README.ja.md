@@ -143,7 +143,7 @@ Harness は単にプロンプトを転送するだけではありません。プ
 
 ## インストール
 
-**プラグインマーケットプレイスは使わないでください。** [dsh-plugin.org](https://dsh-plugin.org) や 設定 → プラグインマーケット でのワンクリックインストールは `already queued: dsh-purge` で失敗し、コマンドを実行しません。`dsh-purge` という名前は npm レジストリにないので、`pnpm add dsh-purge` はしないでください。
+**プラグインマーケットプレイスは使わないでください。** [dsh-plugin.org](https://dsh-plugin.org) と 設定 → プラグインマーケット の `dsh-purge` は上流リポジトリと一緒に公開終了しており、開くと 404 です。この復元リポジトリもそこには登録されていないため、入手できません。**`pnpm add dsh-purge` も避けてください**：npm 上の同名は `0.0.0-stage` のスタブが占有しており、本ソフトウェアではありません。本リポジトリは下記の GitHub アドレスからのみ導入してください。
 
 ### クイックスタート
 
@@ -161,6 +161,11 @@ dsh plugin --profile desktop add https://codeload.github.com/tednved/dsh-purge/t
 2. そのホストで、セッションタイトルの横の **dsh-purge** → **Clean** → **Apply** をクリック。成功した Apply は 1 回だけ再起動します。
 
 完了 — チャットで `/purge status` を実行して確認します。pnpm がビルド許可を尋ねてきた場合や、下記の何かが現れない場合は、この後のステップ別の手順に進んでください。
+
+アドレスが 404 になる場合はリポジトリがまだ非公開です。次のいずれか:
+- 公開に切り替える: `gh repo edit tednved/dsh-purge --visibility public` で上のコマンドがそのまま使えます
+- SSH キーがある: `pnpm add git+ssh://git@github.com/tednved/dsh-purge.git`
+- ローカルに clone 済み: そのディレクトリで `pnpm add .`
 
 ### ステップバイステップ
 
@@ -221,7 +226,7 @@ node node_modules/dsh-purge/scripts/ensure-profile-bundle.mjs
 **ステップ 5 — トラブルシューティング。** 上のステップが「完了の目安」で終わらなかったときだけ読むセクションです。
 
 - **セッションタイトルの横にボタンが無い。** `dsh --dump-config`（または `dsh --profile desktop --dump-config`）を実行し、body 行に `id: dsh-purge`（`dsh-purge-redteam` ではない）があるか確認します。無ければステップ 2 の `ensure-profile-bundle.mjs` を実行し、ホストを完全に終了して再起動します。このバージョン以降は、起動時にライブのレッドチーム子エントリが欠けている insert も書き込みます — もう一度終了・再起動してください。先頭の `entry "redteam-store" not found` は古いレッドチームパッケージの名残で、無視して構いません。
-- **マーケットが `already queued: dsh-purge` と言う。** マーケットのクリックをやめてください。ステップ 2 の `dsh plugin add` か pnpm を再度使います。CLI もすでにあると言う場合は、先に削除してから入れ直し、ステップ 3 をやり直します:
+- **マーケットのリンクが 404 になる。** 正常です。上流リポジトリと一緒に公開終了しました。ステップ 2 に戻り、`dsh plugin add` か pnpm で導入してください。CLI もすでにあると言う場合は、先に削除してから入れ直し、ステップ 3 をやり直します:
 
 ```sh
 dsh plugin --profile desktop remove dsh-purge
@@ -247,7 +252,7 @@ Web では `desktop` を `web` に置き換えます。
 
 <!-- AI-AGENT-START -->
 
-DeepSeek Harness プラグイン `dsh-purge` を Web プロファイルのみにインストールしてください。ディスク全体をスキャンしない、ほかのファイルを読み書きしない、設定を適用しない、アプリを再起動しない。desktop プロファイルにはインストールしない。プラグインマーケットプレイスは使わない。この名前は npm レジストリにないので `pnpm add dsh-purge` はしない。
+DeepSeek Harness プラグイン `dsh-purge` を Web プロファイルのみにインストールしてください。ディスク全体をスキャンしない、ほかのファイルを読み書きしない、設定を適用しない、アプリを再起動しない。desktop プロファイルにはインストールしない。プラグインマーケットプレイスは使わない（掲載は終了して 404）。npm 上の同名はスタブなので `pnpm add dsh-purge` はしない。
 
 **Web（公式 `dsh web`）**
 
@@ -587,7 +592,7 @@ Community Desktop はメンテナンスされていません。
 - 対象範囲は、ローカルの `@deepseek-ai/*` パッケージ内のレンダリング済みコピー、デフォルト、ランタイムロジック、および harness ホーム以下のオーバーライドファイルとルールセットです。
 - アップグレード後、マッチしないオリジナルは skipped と表示されます。Apply はなお完了し、それらのファイルは変更されません。
 - `@deepseek-ai` 外のサードパーティプラグインの *ソースリポジトリ* には手を付けません（CMD サイレンスは、インストール済みの doctor / market / liangshen / mnemon を実行時に **ベストエフォートで** パッチすることがあります）。
-- GitHub tarball からインストールしてください（名前は npm にありません。プラグインマーケットはスキップ）。`dsh` あり: `dsh plugin --profile web add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`。pnpm のみ: `$DSH_HOME/profiles/web` 内でその URL を `pnpm add`。EXE には `desktop` を使用。このリポジトリからは `add .`。
+- GitHub tarball からインストールしてください（npm 上の同名はスタブです。プラグインマーケットはスキップ）。`dsh` あり: `dsh plugin --profile web add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`。pnpm のみ: `$DSH_HOME/profiles/web` 内でその URL を `pnpm add`。EXE には `desktop` を使用。このリポジトリからは `add .`。
 
 ---
 

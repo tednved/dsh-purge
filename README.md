@@ -143,7 +143,7 @@ Unmatched patches stay pending or skipped; nothing is rewritten blindly.
 
 ## Install
 
-**Do not use the plugin marketplace.** One-click install on [dsh-plugin.org](https://dsh-plugin.org) or in Settings → Plugin Market fails with `already queued: dsh-purge` and never runs a command. The name is not on the npm registry, so do not `pnpm add dsh-purge`.
+**Do not use the plugin marketplace.** The `dsh-purge` listing on [dsh-plugin.org](https://dsh-plugin.org) and in Settings → Plugin Market went down together with the upstream repository — it is a 404 now — and this restored repo is not listed there either. **Do not `pnpm add dsh-purge`** either: that name is held on npm by a stub stuck at `0.0.0-stage`, which is not this software. Install this repo only from the GitHub addresses below.
 
 ### Quick start
 
@@ -161,6 +161,11 @@ dsh plugin --profile desktop add https://codeload.github.com/tednved/dsh-purge/t
 2. On that host, click **dsh-purge** beside the session title → **Clean** → **Apply**. A successful Apply restarts the host once.
 
 Done — verify with `/purge status` in chat. If pnpm asks about build scripts, or anything below does not appear, follow the step by step.
+
+Address returns 404? That means the repo is still private. Pick one:
+- Make it public: `gh repo edit tednved/dsh-purge --visibility public`, then the commands above work as written
+- You have an SSH key: `pnpm add git+ssh://git@github.com/tednved/dsh-purge.git`
+- Already cloned locally: run `pnpm add .` inside that directory
 
 ### Step by step
 
@@ -221,7 +226,7 @@ node node_modules/dsh-purge/scripts/ensure-profile-bundle.mjs
 **Step 5 — Troubleshooting.** Jump here only when a step above did not end with its expected result.
 
 - **No button beside the session title.** Run `dsh --dump-config` (or `dsh --profile desktop --dump-config`) and look for a body row `id: dsh-purge` (not `dsh-purge-redteam`). If it is absent, run `ensure-profile-bundle.mjs` (Step 2), then fully quit and reopen the host. After this version, a live red-team child entry also writes the missing insert on startup — quit and reopen once more. `entry "redteam-store" not found` at the top is leftover from an old red-team package and can be ignored.
-- **The market says `already queued: dsh-purge`.** Stop clicking the market; use `dsh plugin add` or pnpm from Step 2. If the CLI also says it is already there, remove and re-add, then redo Step 3:
+- **The market link is a 404.** Expected — the listing went down with the upstream repo. Go back to Step 2 and install with `dsh plugin add` or pnpm. If the CLI says it is already there, remove and re-add, then redo Step 3:
 
 ```sh
 dsh plugin --profile desktop remove dsh-purge
@@ -247,7 +252,7 @@ Swap `desktop` for `web` on Web.
 
 <!-- AI-AGENT-START -->
 
-Install the DeepSeek Harness plugin `dsh-purge` into the Web profile only. Do not scan the whole disk, do not read or edit other files, do not apply settings, and do not restart the app. Do not install into the desktop profile. Do not use the plugin marketplace. The name is not on the npm registry; do not `pnpm add dsh-purge`.
+Install the DeepSeek Harness plugin `dsh-purge` into the Web profile only. Do not scan the whole disk, do not read or edit other files, do not apply settings, and do not restart the app. Do not install into the desktop profile. Do not use the plugin marketplace (its listing is gone, a 404). The npm name is a stub package; do not `pnpm add dsh-purge`.
 
 **Web (official `dsh web`)**
 
@@ -587,7 +592,7 @@ The author's personal channel: [t.me/LLM_PoJia](https://t.me/LLM_PoJia). Notes a
 - Scope is rendered copy, defaults, and runtime logic inside local `@deepseek-ai/*` packages, plus override files and rule sets under the harness home.
 - After an upgrade, unmatched originals show as skipped. Apply still completes, and those files are left unchanged.
 - Third-party plugin *source repos* outside `@deepseek-ai` are left alone (CMD silence may **best-effort** patch installed doctor / market / liangshen / mnemon at runtime).
-- Install from the GitHub tarball (the name is not on npm; skip the plugin market). With `dsh`: `dsh plugin --profile web add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`. pnpm only: `pnpm add` that URL inside `$DSH_HOME/profiles/web`. Use `desktop` for the EXE. From this repo, `add .`.
+- Install from the GitHub tarball (the npm name is a stub package; skip the plugin market). With `dsh`: `dsh plugin --profile web add https://codeload.github.com/tednved/dsh-purge/tar.gz/refs/heads/main`. pnpm only: `pnpm add` that URL inside `$DSH_HOME/profiles/web`. Use `desktop` for the EXE. From this repo, `add .`.
 
 ---
 
